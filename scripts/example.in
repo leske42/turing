@@ -1,0 +1,15 @@
+PROGRAM_NAME
+# sign denotes comments
+# first line needs to be the program name in ALL CAPS, nums with optional underscore
+# you can follow it with arbitrary amount of newline and comments
+
+# next line needs to start with VALID SYMBOLS and a list of them (ASCII printables might be used) separated with whitespace
+VALID SYMBOLS: X z
+
+# state names can contain lowercase alphanumeric and underscore
+VALID STATES: state1 state2
+
+# transition syntax
+# a situation encountered but not included in the list means HALT
+# valid MOVEs are LEFT, RIGHT and HALT
+IF X FROM state1 TO state2 WRITE z MOVE LEFT
