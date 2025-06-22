@@ -1,0 +1,106 @@
+INCEPTION
+#able to execute other turing machines
+
+VALID SYMBOLS: S A B C _ 1 0 | . L R H X
+# the tape has mandatory syntax and acts as a configfile.
+# there are three customizable states denoted by A, B and C
+# three tape symbols denoted by 0, 1 and _ (BLANK)
+# and three possible movements denoted by L (LEFT), R (RIGHT) and H (HALT)
+# tape always starts with S (the Start position)
+# followed by transfer codings in REVERSE ORDER (MOVE, WRITE, TO, FROM, IF)
+# transfer configs are separated by . (DOT)
+# transfer configs are ended by | (PIPE)
+# PIPE is followed by initial state and then the input tape itself
+TAPE: S R 0 A A 1 . R 1 A A 0 | A 1 1 1 0 1 0 1 0 0
+# this tape encodes the program FLIP
+# TAPE: S R 1 A A 1 . L _ C B 1 . R _ B A _ . L 1 A C _ . R _ B B _ | A 1 _ 1 1 _ _ 1 _ _ _ 1 1
+# this other tape encodes the program CONCATENATE
+
+VALID STATES: init assume a b c 1 0 _ a1 a0 a_ b1 b0 b_ c1 c0 c_ a1l a1r a1h a2l a2r a2h a_l a_r a_h b1l b1r b1h b2l b2r b2h b_l b_r b_h c1l c1r c1h c2l c2r c2h c_l c_r c_h
+START STATE: init
+
+# init state skips everything until PIPE is found
+IF S FROM init TO init WRITE S MOVE RIGHT
+IF 1 FROM init TO init WRITE 1 MOVE RIGHT
+IF 0 FROM init TO init WRITE 0 MOVE RIGHT
+IF _ FROM init TO init WRITE _ MOVE RIGHT
+IF A FROM init TO init WRITE A MOVE RIGHT
+IF B FROM init TO init WRITE B MOVE RIGHT
+IF C FROM init TO init WRITE C MOVE RIGHT
+IF R FROM init TO init WRITE R MOVE RIGHT
+IF L FROM init TO init WRITE L MOVE RIGHT
+IF H FROM init TO init WRITE H MOVE RIGHT
+IF | FROM init TO assume WRITE | MOVE RIGHT
+
+# assume picks up the initial state
+IF A FROM assume TO a WRITE | MOVE RIGHT
+IF B FROM assume TO b WRITE | MOVE RIGHT
+IF C FROM assume TO c WRITE | MOVE RIGHT
+
+# mark the spot to proceed from and grab its value
+IF 1 FROM a TO a1 WRITE X MOVE LEFT
+IF 0 FROM a TO a0 WRITE X MOVE LEFT
+IF _ FROM a TO a_ WRITE X MOVE LEFT
+IF 1 FROM b TO b1 WRITE X MOVE LEFT
+IF 0 FROM b TO b0 WRITE X MOVE LEFT
+IF _ FROM b TO b_ WRITE X MOVE LEFT
+IF 1 FROM c TO c1 WRITE X MOVE LEFT
+IF 0 FROM c TO c0 WRITE X MOVE LEFT
+IF _ FROM c TO c_ WRITE X MOVE LEFT
+
+# skip tape section until PIPE
+IF 1 FROM a1 TO a1 WRITE 1 MOVE LEFT
+IF 0 FROM a1 TO a1 WRITE 0 MOVE LEFT
+IF _ FROM a1 TO a1 WRITE _ MOVE LEFT
+IF | FROM a1 TO a1 WRITE | MOVE LEFT
+IF 1 FROM a0 TO a0 WRITE 1 MOVE LEFT
+IF 0 FROM a0 TO a0 WRITE 0 MOVE LEFT
+IF _ FROM a0 TO a0 WRITE _ MOVE LEFT
+IF | FROM a0 TO a0 WRITE | MOVE LEFT
+IF 1 FROM a_ TO a_ WRITE 1 MOVE LEFT
+IF 0 FROM a_ TO a_ WRITE 0 MOVE LEFT
+IF _ FROM a_ TO a_ WRITE _ MOVE LEFT
+IF | FROM a_ TO a_ WRITE | MOVE LEFT
+IF 1 FROM b1 TO b1 WRITE 1 MOVE LEFT
+IF 0 FROM b1 TO b1 WRITE 0 MOVE LEFT
+IF _ FROM b1 TO b1 WRITE _ MOVE LEFT
+IF | FROM b1 TO b1 WRITE | MOVE LEFT
+IF 1 FROM b0 TO b0 WRITE 1 MOVE LEFT
+IF 0 FROM b0 TO b0 WRITE 0 MOVE LEFT
+IF _ FROM b0 TO b0 WRITE _ MOVE LEFT
+IF | FROM b0 TO b0 WRITE | MOVE LEFT
+IF 1 FROM b_ TO b_ WRITE 1 MOVE LEFT
+IF 0 FROM b_ TO b_ WRITE 0 MOVE LEFT
+IF _ FROM b_ TO b_ WRITE _ MOVE LEFT
+IF | FROM b_ TO b_ WRITE | MOVE LEFT
+IF 1 FROM c1 TO c1 WRITE 1 MOVE LEFT
+IF 0 FROM c1 TO c1 WRITE 0 MOVE LEFT
+IF _ FROM c1 TO c1 WRITE _ MOVE LEFT
+IF | FROM c1 TO c1 WRITE | MOVE LEFT
+IF 1 FROM c0 TO c0 WRITE 1 MOVE LEFT
+IF 0 FROM c0 TO c0 WRITE 0 MOVE LEFT
+IF _ FROM c0 TO c0 WRITE _ MOVE LEFT
+IF | FROM c0 TO c0 WRITE | MOVE LEFT
+IF 1 FROM c_ TO c_ WRITE 1 MOVE LEFT
+IF 0 FROM c_ TO c_ WRITE 0 MOVE LEFT
+IF _ FROM c_ TO c_ WRITE _ MOVE LEFT
+IF | FROM c_ TO c_ WRITE | MOVE LEFT
+
+#stay in current mode on findig a possibly correct transition
+
+#enter skip-till-dot mode if the transition is incorrect at any point
+
+#enter assume if the transition matches perfectly
+
+#build your carry-right signature
+
+#carry your carry-right signature till X
+
+#fill X with the right value
+
+#adopt your new state and perform your movement
+
+
+
+
+
