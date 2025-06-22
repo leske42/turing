@@ -1,0 +1,15 @@
+CONCATENATE
+#this program concatenates one or more strings separated by BLANK
+#can be used for unary addition
+
+VALID SYMBOLS: A _
+TAPE: A _ A A _ _ A _ _ _ A A
+
+VALID STATES: clear grab paste
+START STATE: clear
+
+IF A FROM clear TO clear WRITE A MOVE RIGHT
+IF A FROM grab TO paste WRITE _ MOVE LEFT
+IF _ FROM clear TO grab WRITE _ MOVE RIGHT
+IF _ FROM paste TO clear WRITE A MOVE LEFT
+IF _ FROM grab TO grab WRITE _ MOVE RIGHT
