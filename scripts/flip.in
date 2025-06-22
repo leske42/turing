@@ -1,0 +1,13 @@
+FLIP
+#this program flips its input bits
+
+# the only valid input are bits
+VALID SYMBOLS: 0 1
+TAPE: 1 1 1 0 1 0 1 0 0
+
+VALID STATES: ult
+START STATE: ult
+
+IF 1 FROM ult TO ult WRITE 0 MOVE RIGHT
+IF 0 FROM ult TO ult WRITE 1 MOVE RIGHT
+#since i dont define blank it will halt by default

@@ -78,8 +78,6 @@ def create_states(line):
 def parse_config(filename):
 
     name = None
-    symbols = set()
-    states = set()
 
     with open(filename, 'r') as f:
         lines = f.readlines()
@@ -88,19 +86,21 @@ def parse_config(filename):
     lines = [clean(line) for line in lines]
     lines = [line for line in lines if line]
 
-    if len(lines) < 3:
-        raise ParseError("Config must contain at least NAME, VALID SYMBOLS and VALID STATES")
+    if len(lines) < 5:
+        raise ParseError("Config must contain NAME, VALID SYMBOLS, TAPE, VALID STATES and START STATE")
 
     symbols = create_symbols(lines[1])
-    states = create_states(lines[2])
+    states = create_states(lines[3])
 
     return {
         "name": lines[0],
+        "tape" : lines[2].split()[1:],
         "symbols": symbols,
         "states": states,
-        "transitions": fill_dict(lines[3:], states, symbols)
+        "init": re.sub(r'^\s*START STATE:\s*', '', lines[4]).strip(),
+        "transitions": fill_dict(lines[5:], states, symbols)
     }
-#TODO: validate NAME, validate first 2 word of symbols and states
+#TODO: validate NAME, validate first 2 word of symbols and states, lines[4] etc.
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
