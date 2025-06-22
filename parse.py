@@ -2,6 +2,8 @@ import re
 import sys
 import string
 
+__all__ = ["parse_config"]
+
 class ParseError(Exception):
     pass
 
