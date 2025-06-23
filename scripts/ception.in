@@ -19,6 +19,22 @@ TAPE: S R 1 A A 1 . L _ C B 1 . R _ B A _ . L 1 A C _ . R _ B B _ | A 1 _ 1 1 _ 
 VALID STATES: init choose assume a b c 1 0 _ ga gb gc a1 a0 a_ b1 b0 b_ c1 c0 c_ a1g a0g a_g b1g b0g b_g c1g c0g c_g a1. a0. a_. b1. b0. b_. c1. c0. c_. a1l a1r a1h a0l a0r a0h a_l a_r a_h b1l b1r b1h b0l b0r b0h b_l b_r b_h c1l c1r c1h c0l c0r c0h c_l c_r c_h
 START STATE: init
 
+# here is the logic of the machine summarized before the actual code
+# 1. "init" state skips everything until PIPE is found
+# 2. "choose" picks up the initial state
+# 3. mark the spot to proceed from and grab its value
+# 4. traverse left until PIPE
+# 5. stay in current mode on findig a possibly correct transition
+# 6. enter skip-till-dot mode if the transition is incorrect at any point
+# 6.1. resume from skip-till-dot if DOT is encountered
+# 6.2. skip everything else in skip-till-dot mode
+# 7. enter assume if the transition matches perfectly
+# 8. build your carry-right signature
+# 9. carry your carry-right signature back till X
+# 10. fill X with the right value and unwrap your state
+
+##### CODE STARTS HERE #####
+
 # init state skips everything until PIPE is found
 IF S FROM init TO init WRITE S MOVE RIGHT
 IF 1 FROM init TO init WRITE 1 MOVE RIGHT
