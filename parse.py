@@ -11,7 +11,7 @@ def valid_symbol(token):
     return ((len(token) == 1 and token in string.printable))
 
 def valid_state(token):
-    state_pattern = re.compile(r'^[a-z0-9_]+$')
+    state_pattern = re.compile(r'^[a-z0-9_.]+$')
     return (state_pattern.match(token))
 
 def validate(tokens, line):
