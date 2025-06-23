@@ -10,10 +10,14 @@ class Machine:
     
     def run(self):
 
-        while True: #TODO how not to run out of infinite tape bounds?
-            if self.pos < 0 or self.pos >= len(self.tape): #this HALTS if we arrive at left or right blank which is not correct behavior
-                break
+        while True:
+            if self.pos < 0:
+                self.tape.insert(0, '_')
+                self.pos = 0
+            elif self.pos >= len(self.tape):
+                self.tape.append('_')
             if self.state not in self.map or self.tape[self.pos] not in self.map[self.state]:
+                #print("position: " + self.state + " character: " + self.tape[self.pos])
                 break
             to_state, write_symbol, mov = self.map[self.state][self.tape[self.pos]]
             self.state = to_state

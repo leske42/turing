@@ -13,7 +13,7 @@ VALID SYMBOLS: S A B C _ 1 0 | . L R H X
 # PIPE is followed by initial state and then the input tape itself
 #TAPE: S R 0 A A 1 . R 1 A A 0 | A 1 1 1 0 1 0 1 0 0
 # this tape encodes the program FLIP
-TAPE: S R 1 A A 1 . L _ C B 1 . R _ B A _ . L 1 A C _ . R _ B B _ | A 1 _ 1 1 _ _ 1 _ _ _ 1 1
+TAPE: S R 1 A A 1 . L _ C B 1 . R _ B A _ . L 1 A C _ . R _ B B _ | A 1 _ 1 1 _ _ 1 _ _ _ 1 1 .
 # this other tape encodes the program CONCATENATE
 
 VALID STATES: init choose assume a b c 1 0 _ ga gb gc a1 a0 a_ b1 b0 b_ c1 c0 c_ a1g a0g a_g b1g b0g b_g c1g c0g c_g a1. a0. a_. b1. b0. b_. c1. c0. c_. a1l a1r a1h a0l a0r a0h a_l a_r a_h b1l b1r b1h b0l b0r b0h b_l b_r b_h c1l c1r c1h c0l c0r c0h c_l c_r c_h
