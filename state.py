@@ -8,23 +8,23 @@ class Machine:
         self.tape = tape
         self.pos = 0 # TODO: make this configurable
     
-    def run(self):
+    def step(self):
+        if self.pos < 0:
+            self.tape.insert(0, '_')
+            self.pos = 0
+        elif self.pos >= len(self.tape):
+            self.tape.append('_')
+        if self.state not in self.map or self.tape[self.pos] not in self.map[self.state]:
+            #print("position: " + self.state + " character: " + self.tape[self.pos])
+            return False
+        to_state, write_symbol, mov = self.map[self.state][self.tape[self.pos]]
+        self.state = to_state
+        self.tape[self.pos] = write_symbol
+        self.pos += -1 if mov == "LEFT" else (1 if mov == "RIGHT" else 0)
+        return True
 
-        while True:
-            if self.pos < 0:
-                self.tape.insert(0, '_')
-                self.pos = 0
-            elif self.pos >= len(self.tape):
-                self.tape.append('_')
-            if self.state not in self.map or self.tape[self.pos] not in self.map[self.state]:
-                #print("position: " + self.state + " character: " + self.tape[self.pos])
-                break
-            to_state, write_symbol, mov = self.map[self.state][self.tape[self.pos]]
-            self.state = to_state
-            self.tape[self.pos] = write_symbol
-            self.pos += -1 if mov == "LEFT" else (1 if mov == "RIGHT" else 0)
-
-        print(self.tape)
+    def print(self):
+        print("OUTPUT: " + ' '.join(self.tape))
 
 
 if __name__ == "__main__":
