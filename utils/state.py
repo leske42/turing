@@ -1,4 +1,4 @@
-from parse import parse_config
+from . import parse
 import sys
 
 class Machine:

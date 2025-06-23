@@ -1,6 +1,6 @@
-from parse import parse_config
-from state import Machine
-from display import Display
+from utils.parse import parse_config
+from utils.state import Machine
+from utils.display import Display
 import sys
 
 if __name__ == "__main__":
