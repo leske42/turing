@@ -25,6 +25,11 @@ class Machine:
 
     def print(self):
         print("OUTPUT: " + ' '.join(self.tape))
+    
+    def run(self):
+        while self.step():
+            pass
+        self.print()
 
 
 if __name__ == "__main__":

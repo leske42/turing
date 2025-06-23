@@ -23,7 +23,5 @@ if __name__ == "__main__":
         display.draw(machine.tape, machine.pos)
         display.run()
     else:
-        while machine.step():
-            pass
-        machine.print()
+        machine.run()
     
